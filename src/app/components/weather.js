@@ -8,9 +8,15 @@ export function Weather() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setCity('');
-        const res = await fetch(`/api/location?city=${city}`)
+
+        const res = await fetch(`/api/location?city=${city}`);
         const data = await res.json();
-        console.log(data);
+        const lat = data.data[0].lat;
+        const lon = data.data[0].lon;
+
+        const res2 = await fetch(`/api/weather?lat=${lat}&lon=${lon}`);
+        const data2 = await res2.json();
+        console.log(data2.data.current.dt);
     }
     return (
         <div>
